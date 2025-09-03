@@ -33,27 +33,25 @@ public class AuthService {
 
     this.usuariosRepository.save(newUser);
 
-    // Cria UserDetails para o novo usuário para gerar o token
     UserDetails userDetails = new org.springframework.security.core.userdetails.User(
-        newUser.getUsername(), newUser.getPasswordHash(), savedUser.getAuthorities());
+        newUser.getUsername(), newUser.getPasswordHash(), newUser.getAuthorities());
     String token = tokenService.generateToken(userDetails);
-    return new AuthResponseDTO(token);
+    return new AuthResponseDTO(newUser.getUsername(), token);
   }
 
   public AuthResponseDTO login(LoginRequestDTO request) {
-    // Valida as credenciais usando o Spring Security
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
             request.username(),
             request.password()));
-    // Se a autenticação foi bem-sucedida, busca o usuário e gera o token
-    var user = usuariosRepository.findByUsername(request.username())
+
+    Usuarios user = usuariosRepository.findByUsername(request.username())
         .orElseThrow(() -> new IllegalArgumentException("Usuário ou senha inválidos."));
 
     UserDetails userDetails = new org.springframework.security.core.userdetails.User(
         user.getUsername(), user.getPasswordHash(), user.getAuthorities());
 
     String token = tokenService.generateToken(userDetails);
-    return new AuthResponseDTO(token);
+    return new AuthResponseDTO(user.getUsername(), token);
   }
 }

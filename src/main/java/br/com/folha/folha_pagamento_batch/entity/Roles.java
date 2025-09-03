@@ -1,12 +1,15 @@
 package br.com.folha.folha_pagamento_batch.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,5 +33,8 @@ public class Roles implements Serializable {
 
   @Column(name = "nome", length = 50, unique = true, nullable = false)
   private String nome;
+
+  @ManyToMany(mappedBy = "roles")
+  private Set<Usuarios> usuarios = new HashSet<>();
 
 }
