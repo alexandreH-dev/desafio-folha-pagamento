@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:16
+    container_name: folha_pagamento_pg
+    environment:
+      POSTGRES_DB: folha_pagamento
+      POSTGRES_USER: folha_user
+      POSTGRES_PASSWORD: folha_secret
+      TZ: America/Fortaleza
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB" ]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  app:
+    build: .
+    container_name: folha-pagamento-app
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/folha_pagamento
+      DB_USER: folha_user
+      DB_PASSWORD: folha_secret
+      TZ: America/Fortaleza
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+
+volumes:
+  pgdata:

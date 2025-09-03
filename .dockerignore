@@ -1,0 +1,22 @@
+# Ignorar pasta de build
+target/
+out/
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# IDEs e configs locais
+.vscode/
+.idea/
+*.iml
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Scripts de wrapper (já que o build usa maven do container)
+mvnw
+mvnw.cmd
+.mvn/
