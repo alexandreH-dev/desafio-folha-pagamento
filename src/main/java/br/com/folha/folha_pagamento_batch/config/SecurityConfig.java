@@ -1,5 +1,6 @@
 package br.com.folha.folha_pagamento_batch.config;
 
+import br.com.folha.folha_pagamento_batch.auth.CustomAuthenticationEntryPoint;
 import br.com.folha.folha_pagamento_batch.auth.SecurityFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,15 @@ public class SecurityConfig {
 
   private final SecurityFilter securityFilter;
 
+  private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
+  /**
+   * Configura a cadeia de filtros de segurança que protege os endpoints HTTP.
+   *
+   * @param http o objeto HttpSecurity a ser configurado.
+   * @return a cadeia de filtros de segurança construída.
+   * @throws Exception se ocorrer um erro durante a configuração.
+   */
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
@@ -32,6 +42,7 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
             .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
             .anyRequest().authenticated())
+        .exceptionHandling(exception -> exception.authenticationEntryPoint(customAuthenticationEntryPoint))
         .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();

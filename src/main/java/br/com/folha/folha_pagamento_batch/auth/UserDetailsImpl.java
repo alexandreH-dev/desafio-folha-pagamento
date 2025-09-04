@@ -7,6 +7,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * Implementação da interface UserDetails do Spring Security.
+ * Atua como um 'Adaptador', envolvendo a entidade 'Usuarios' do banco de dados e
+ * traduzindo suas informações (username, senha, permissões, status) para o formato que o
+ * Spring Security utiliza internamente para realizar a autenticação e autorização.
+ */
 @RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 

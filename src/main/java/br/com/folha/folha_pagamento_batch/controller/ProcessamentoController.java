@@ -1,5 +1,6 @@
 package br.com.folha.folha_pagamento_batch.controller;
 
+import br.com.folha.folha_pagamento_batch.exception.ResourceNotFoundException;
 import br.com.folha.folha_pagamento_batch.service.JobLauncherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.JobExecution;
@@ -34,7 +35,7 @@ public class ProcessamentoController {
   public ResponseEntity<?> getStatus(@PathVariable Long executionId) {
     JobExecution jobExecution = jobExplorer.getJobExecution(executionId);
     if (jobExecution == null) {
-      return ResponseEntity.notFound().build();
+      throw new ResourceNotFoundException("Relatório não encontrado para a execução com ID: " + executionId);
     }
     return ResponseEntity.ok(Map.of(
         "executionId", executionId,

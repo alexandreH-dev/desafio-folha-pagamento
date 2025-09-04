@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>br.com.folha</groupId>
 	<artifactId>folha-pagamento-batch</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>folha-pagamento-batch</name>
 	<description>Projeto de teste em Java para processamento de folha de pagamento</description>
 	<url />

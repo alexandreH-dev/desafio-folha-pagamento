@@ -12,6 +12,9 @@ import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.function.Function;
 
+/**
+ * Serviço responsável por todas as operações relacionadas ao JSON Web Token (JWT).
+ */
 @Service
 public class TokenService {
 

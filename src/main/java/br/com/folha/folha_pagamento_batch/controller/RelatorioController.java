@@ -2,6 +2,7 @@ package br.com.folha.folha_pagamento_batch.controller;
 
 import br.com.folha.folha_pagamento_batch.dto.RelatorioFinanceiroExecDTO;
 import br.com.folha.folha_pagamento_batch.entity.RelatorioFinanceiroExec;
+import br.com.folha.folha_pagamento_batch.exception.ResourceNotFoundException;
 import br.com.folha.folha_pagamento_batch.repository.RelatorioFinanceiroExecRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,7 +30,7 @@ public class RelatorioController {
       @RequestParam(defaultValue = "TABLE") String formato) {
     List<RelatorioFinanceiroExec> relatorio = repository.findByIdExecutionId(executionId);
     if (relatorio.isEmpty()) {
-      return ResponseEntity.notFound().build();
+      throw new ResourceNotFoundException("Relatório não encontrado para a execução com ID: " + executionId);
     }
 
     if ("CSV".equalsIgnoreCase(formato)) {
