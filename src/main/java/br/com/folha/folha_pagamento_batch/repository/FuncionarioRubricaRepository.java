@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface FuncionarioRubricaRepository extends JpaRepository<FuncionarioRubrica, Long> {
 
-  List<FuncionarioRubrica> findByFuncionarioIdAndCompetenciaAnoAndCompetenciaMes(Long funcionarioId, Integer ano,
-      Integer mes);
+  List<FuncionarioRubrica> findByFuncionarioIdAndCompetenciaMesAndCompetenciaAno(Long funcionarioId, Integer mes,
+      Integer ano);
 }

@@ -14,7 +14,6 @@ public class UserDetailsImpl implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    // Futuramente, você pode mapear as Roles do usuário aqui.
     return usuario.getAuthorities();
   }
 

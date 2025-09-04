@@ -9,11 +9,9 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-/**
- * Entidade que mapeia a tabela relatorio_financeiro_exec.
- * Utiliza a classe RelatorioFinanceiroExecPK como sua chave primária composta
- * (@EmbeddedId).
- */
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -41,6 +39,7 @@ public class RelatorioFinanceiroExec implements Serializable {
   @Column(name = "liquido", precision = 14, scale = 2, nullable = false)
   private BigDecimal liquido;
 
+  @JdbcTypeCode(SqlTypes.JSON)
   @Column(name = "detalhe", nullable = false, columnDefinition = "jsonb")
   private String detalhe;
 }

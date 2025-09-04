@@ -53,4 +53,5 @@ public class FuncionarioRubrica implements Serializable {
 
   @Column(name = "status", length = 20)
   private String status;
+
 }

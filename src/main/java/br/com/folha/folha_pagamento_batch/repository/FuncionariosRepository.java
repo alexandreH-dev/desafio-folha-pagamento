@@ -4,9 +4,6 @@ import br.com.folha.folha_pagamento_batch.entity.Funcionarios;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface FuncionariosRepository extends JpaRepository<Funcionarios, Long> {
-  Optional<Funcionarios> findByNome(String nome);
 }
